@@ -22,7 +22,7 @@ char* ipc_create(int size){
     const char *name = "lab2";
 
     // TODO: create the shared memory object called lab2
-    fd = shm_open(name, O_CREAT | O_RDWR, 5050);
+    fd = shm_open(name, O_CREAT | O_RDWR, 0666);
 
     // TODO: configure the size of the shared memory object 
     ftruncate(fd, size);
