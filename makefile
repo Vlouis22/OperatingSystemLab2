@@ -1,13 +1,14 @@
-all: time
+time: main.o ipc.o time.o
+	gcc -o time time.o main.o ipc.o -lrt
 
-time: main.c ipc.o time.o
-	$(CC) -o time main.c ipc.o time.o
+main.o: main.c
+	gcc -c main.c
 
 ipc.o: ipc.c
-	$(CC) -c ipc.c -o ipc.o	
+	gcc -c ipc.c
 	
 time.o: time.c
-	$(CC) -c time.c -o time.o
+	gcc -c time.c
 
 clear:
 	rm -f *.0

@@ -7,6 +7,8 @@
 #include <fcntl.h>
 #include <sys/shm.h>
 #include <sys/mman.h>
+#include <sys/wait.h>
+#include "lab2.h"
 
 /************************************************************\
  * get_arguments - returns the command line arguments not
@@ -34,7 +36,7 @@ char **get_arguments(int argc, char **argv)
     return cmd_args;
 }
 
-char* ipc_create(int);
+char *ipc_create(int);
 void ipc_close();
 double elapsed_time();
 
@@ -52,8 +54,6 @@ int main(int argc, char **argv)
     char *ptr;
     const int SIZE = 16384;
     struct timeval time;
-
-
 
     if (argc < 2)
     {
@@ -98,7 +98,7 @@ int main(int argc, char **argv)
         // TODO: read the start time from IPC
         fd = shm_open(name, O_RDONLY, 0666);
         ptr = (char *)
-        mmap(0, SIZE, PROT_READ, MAP_SHARED, fd, 0);
+            mmap(0, SIZE, PROT_READ, MAP_SHARED, fd, 0);
 
         start_time = *(struct timeval *)ptr;
 
@@ -106,7 +106,7 @@ int main(int argc, char **argv)
         ipc_close();
 
         // NOTE: DO NOT ALTER THE LINE BELOW.
-        printf("Elapsed time %.5f\n",elapsed_time(&start_time, &current_time));
+        printf("Elapsed time %.5f\n", elapsed_time(&start_time, &current_time));
     }
 
     return status;
